@@ -114,17 +114,14 @@ footer, #MainMenu { visibility: hidden; }
   background: linear-gradient(135deg, rgba(20, 29, 54, .92), rgba(14, 21, 39, .92));
   border: 1px solid var(--border);
   box-shadow: 0 24px 60px -30px rgba(0, 0, 0, .8);
-  animation: fadeUp .7s ease both;
 }
 .hero::before {
   content: ""; position: absolute; inset: -60% -10% auto auto; width: 520px; height: 520px; border-radius: 50%;
   background: radial-gradient(circle, rgba(34, 211, 238, .28), transparent 65%);
-  animation: float 9s ease-in-out infinite;
 }
 .hero::after {
   content: ""; position: absolute; inset: auto auto -70% -8%; width: 460px; height: 460px; border-radius: 50%;
   background: radial-gradient(circle, rgba(139, 92, 246, .30), transparent 65%);
-  animation: float 11s ease-in-out infinite reverse;
 }
 .hero > * { position: relative; z-index: 1; }
 .hero-tag {
@@ -137,28 +134,27 @@ footer, #MainMenu { visibility: hidden; }
 .hero h1 .grad {
   background: linear-gradient(90deg, var(--cyan), var(--violet) 60%, #f0abfc);
   background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent; color: transparent; animation: shine 6s linear infinite;
+  -webkit-text-fill-color: transparent; color: transparent;
 }
 .hero p { color: var(--muted) !important; font-size: 1.02rem; margin: 0; max-width: 720px; }
 
 /* ---------- Section headings ---------- */
-.sec { margin: 6px 0 16px; animation: fadeUp .5s ease both; }
+.sec { margin: 6px 0 16px; }
 .sec h3 { font-size: 1.35rem; font-weight: 800; margin: 0; padding: 0; letter-spacing: -.01em; display: flex; align-items: center; gap: 10px; }
 .sec h3::before { content: ""; width: 5px; height: 22px; border-radius: 4px; background: linear-gradient(180deg, var(--cyan), var(--violet)); }
 .sec p { color: var(--muted) !important; margin: 4px 0 0 15px; font-size: .92rem; }
 
 /* ---------- Stat cards ---------- */
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin-bottom: 18px; }
+.stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-bottom: 18px; align-items: stretch; }
+@media (max-width: 1100px) { .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .stat {
   --c: var(--cyan);
   position: relative; overflow: hidden; padding: 20px 20px 18px; border-radius: 20px;
   background: linear-gradient(160deg, var(--surface-2), var(--surface));
   border: 1px solid var(--border);
   transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s, border-color .3s;
-  animation: fadeUp .6s ease both;
 }
-.stat:nth-child(2) { animation-delay: .06s; } .stat:nth-child(3) { animation-delay: .12s; }
-.stat:nth-child(4) { animation-delay: .18s; } .stat:nth-child(5) { animation-delay: .24s; }
 .stat::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 3px; background: var(--c); opacity: .9; }
 .stat::after {
   content: ""; position: absolute; right: -40px; top: -40px; width: 130px; height: 130px; border-radius: 50%;
@@ -169,12 +165,12 @@ footer, #MainMenu { visibility: hidden; }
 .stat .ico { font-size: 1.5rem; display: inline-block; transition: transform .3s; }
 .stat:hover .ico { transform: scale(1.25) rotate(-8deg); }
 .stat .lbl { color: var(--muted) !important; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; margin-top: 10px; }
-.stat .val { font-size: 2.3rem; font-weight: 800; line-height: 1.1; color: #fff !important; margin-top: 2px; }
+.stat .val { font-size: 2.1rem; font-weight: 800; line-height: 1.1; color: #fff !important; margin-top: 2px; }
 .stat.c-green { --c: var(--green); } .stat.c-amber { --c: var(--amber); }
 .stat.c-violet { --c: var(--violet); } .stat.c-grey { --c: var(--grey); }
 
 /* ---------- Availability bar ---------- */
-.dist { padding: 16px 18px 14px; border-radius: 18px; background: var(--surface); border: 1px solid var(--border); margin-bottom: 22px; animation: fadeUp .7s ease both; }
+.dist { padding: 16px 18px 14px; border-radius: 18px; background: var(--surface); border: 1px solid var(--border); margin-bottom: 22px; }
 .dist-bar { display: flex; height: 12px; border-radius: 99px; overflow: hidden; background: #0a1020; gap: 2px; }
 .dist-bar span { display: block; transition: filter .25s, transform .25s; transform-origin: bottom; }
 .dist-bar span:hover { filter: brightness(1.3); transform: scaleY(1.5); }
@@ -203,7 +199,7 @@ footer, #MainMenu { visibility: hidden; }
 [data-baseweb="tab-list"] button[role="tab"][aria-selected="true"] * { color: #fff !important; }
 [data-baseweb="tab-highlight"] { background: transparent !important; }
 [data-baseweb="tab-border"] { display: none !important; }
-[data-baseweb="tab-panel"] { padding-top: 1.4rem !important; animation: fadeUp .5s ease both; }
+[data-baseweb="tab-panel"] { padding-top: 1.4rem !important; }
 
 /* ---------- Inputs ---------- */
 [data-baseweb="input"], [data-baseweb="base-input"], [data-baseweb="select"] > div, [data-baseweb="textarea"] {
@@ -290,8 +286,7 @@ li[role="option"]:hover, li[role="option"][aria-selected="true"], [data-baseweb=
   --c: var(--cyan);
   display: flex; align-items: flex-start; gap: 14px; padding: 15px 18px; margin: 4px 0 16px; border-radius: 14px;
   background: color-mix(in srgb, var(--c) 11%, #0b1223); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent);
-  border-left: 4px solid var(--c); color: var(--text); font-size: .94rem; line-height: 1.5;
-  animation: slideIn .45s cubic-bezier(.2, .8, .2, 1) both; transition: transform .2s, box-shadow .2s;
+  border-left: 4px solid var(--c); color: var(--text); font-size: .94rem; line-height: 1.5; transition: transform .2s, box-shadow .2s;
 }
 .note:hover { transform: translateX(4px); box-shadow: 0 12px 28px -18px var(--c); }
 .note .n-ico { font-size: 1.15rem; line-height: 1.4; }
@@ -301,16 +296,16 @@ li[role="option"]:hover, li[role="option"][aria-selected="true"], [data-baseweb=
 /* ---------- Tables ---------- */
 .tbl-wrap {
   max-height: 480px; overflow: auto; border-radius: 16px; background: var(--surface);
-  border: 1px solid var(--border); margin-bottom: 14px; animation: fadeUp .6s ease both;
+  border: 1px solid var(--border); margin-bottom: 14px;
 }
-table.tbl { width: 100%; border-collapse: separate; border-spacing: 0; font-size: .875rem; margin: 0 !important; }
+table.tbl { width: 100%; border-collapse: separate; border-spacing: 0; font-size: .84rem; margin: 0 !important; table-layout: auto; }
 table.tbl th {
-  position: sticky; top: 0; z-index: 2; text-align: left; white-space: nowrap; padding: 13px 16px;
+  position: sticky; top: 0; z-index: 2; text-align: left; white-space: nowrap; padding: 12px 12px;
   background: #16203f !important; color: #a9bbe0 !important; font-size: .7rem; font-weight: 800;
   text-transform: uppercase; letter-spacing: .09em; border: 0 !important; border-bottom: 1px solid var(--border) !important;
 }
 table.tbl td {
-  padding: 12px 16px; white-space: nowrap; color: var(--text) !important; background: transparent !important;
+  padding: 11px 12px; white-space: nowrap; color: var(--text) !important; background: transparent !important;
   border: 0 !important; border-top: 1px solid rgba(148, 163, 184, .09) !important; transition: background .18s;
 }
 table.tbl tbody tr:nth-child(even) td { background: rgba(255, 255, 255, .018) !important; }
@@ -552,16 +547,22 @@ def get_connection():
     )
 
 
-def query_df(sql, params=None):
-    conn = get_connection()
+@st.cache_data(ttl=30, show_spinner=False)
+def _cached_df(host, port, user, password, database, sql, params):
+    conn = mysql.connector.connect(
+        host=host, port=int(port), user=user, password=password, database=database, autocommit=False,
+    )
     try:
         return pd.read_sql(sql, conn, params=params)
     finally:
         conn.close()
 
 
-def query_rows(sql, params=None):
-    conn = get_connection()
+@st.cache_data(ttl=30, show_spinner=False)
+def _cached_rows(host, port, user, password, database, sql, params):
+    conn = mysql.connector.connect(
+        host=host, port=int(port), user=user, password=password, database=database, autocommit=False,
+    )
     try:
         cur = conn.cursor(dictionary=True)
         cur.execute(sql, params or ())
@@ -570,6 +571,15 @@ def query_rows(sql, params=None):
         return rows
     finally:
         conn.close()
+
+
+def query_df(sql, params=None):
+    """Read-only query, cached for 30 s (cleared automatically after any change)."""
+    return _cached_df(db_host, db_port, db_user, db_password, db_name, sql, params)
+
+
+def query_rows(sql, params=None):
+    return _cached_rows(db_host, db_port, db_user, db_password, db_name, sql, params)
 
 
 def issue_equipment(equipment_id, student_id, staff_id, expected_return):
@@ -606,6 +616,7 @@ def issue_equipment(equipment_id, student_id, staff_id, expected_return):
             (equipment_id,),
         )
         conn.commit()
+        st.cache_data.clear()
         return True
     except Exception:
         conn.rollback()
@@ -660,6 +671,7 @@ def return_equipment(allocation_id, return_condition, remarks):
                 (allocation["Equipment_ID"],),
             )
         conn.commit()
+        st.cache_data.clear()
         return True
     except Exception:
         conn.rollback()
@@ -1039,6 +1051,7 @@ try:
 
                     cur.execute("UPDATE Equipment SET Availability_Status=%s WHERE Equipment_ID=%s", (target_status, equipment_id))
                     conn.commit()
+                    st.cache_data.clear()
                     if target_status == "Under Maintenance":
                         flash("success", "Equipment marked Under Maintenance. It cannot be borrowed.")
                     elif action == "Reactivate Retired — Make Available":
