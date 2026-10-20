@@ -1,3 +1,4 @@
+import hmac
 import html
 import os
 from datetime import date, timedelta
@@ -445,6 +446,38 @@ def login_screen():
         section("🔐 Sign in", "Enter your MySQL credentials to open the equipment manager.")
         if "_login_error" in st.session_state:
             notice("error", st.session_state.pop("_login_error"))
+        # Deployed mode: DB details live in Streamlit "Secrets"; visitors only enter an access password.
+        try:
+            cfg = dict(st.secrets["db"])
+        except Exception:
+            cfg = None
+        if cfg:
+            with st.form("access_form"):
+                access = st.text_input("Access password", type="password", placeholder="Ask the owner for the password")
+                go_access = st.form_submit_button("🔓  Enter", type="primary")
+            if go_access:
+                expected = str(cfg.get("access_password", ""))
+                if not expected or not hmac.compare_digest(access.encode(), expected.encode()):
+                    st.session_state["_login_error"] = "Incorrect access password."
+                    st.rerun()
+                try:
+                    test = mysql.connector.connect(
+                        host=cfg["host"], port=int(cfg.get("port", 3306)), user=cfg["user"],
+                        password=cfg["password"], database=cfg.get("database", "lab_equipment_db"),
+                    )
+                    test.close()
+                except Error as exc:
+                    st.session_state["_login_error"] = f"The database is not reachable right now. Details: {exc}"
+                    st.rerun()
+                st.session_state["auth"] = {
+                    "host": cfg["host"], "port": int(cfg.get("port", 3306)), "user": cfg["user"],
+                    "password": cfg["password"], "database": cfg.get("database", "lab_equipment_db"),
+                    "managed": True,
+                }
+                flash("success", "Welcome! You are connected.")
+                st.rerun()
+            return
+
         with st.form("login_form"):
             user = st.text_input("Username", value=os.getenv("DB_USER", "root"))
             pwd = st.text_input(
@@ -497,8 +530,9 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
     conn_status = st.empty()
-    st.caption(f"Server: {db_host}:{db_port}")
-    st.caption(f"User: {db_user}")
+    if not _auth.get("managed"):
+        st.caption(f"Server: {db_host}:{db_port}")
+        st.caption(f"User: {db_user}")
     if st.button("🚪  Log out"):
         st.session_state.pop("auth", None)
         st.rerun()
